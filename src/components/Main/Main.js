@@ -25,12 +25,13 @@ class Main extends React.Component {
     const { events } = this.props;
 
     return (
-      <>
+      <div className="mainBlock">
         <SearchBar />
         <Filters categories={this.state.categories} />
         <Cards events={events} />
-      </>
-    );
+      </div>
+
+    )
   }
 }
 
