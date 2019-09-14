@@ -179,3 +179,9 @@ def get_date_and_time(event_url):
 
   date_and_time = date + " " + time
   return {'date': date_and_time}
+
+def get_description(event_url):
+  response = requests.get(event_url)
+  soup = bs(response.content, "html.parser")
+  description = soup.find('div', itemprop='description').text
+  return {'description': description}
