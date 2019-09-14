@@ -26,9 +26,6 @@ def parse_link_name_image(url):
   events = []
 
   for i in range(1, 11):
-    # create object of event
-    event = {}
-
     # get row with article
     if i == 1:
       for article_div in soup.findAll("div", class_="row views-row row-1 row-first"):
@@ -42,24 +39,7 @@ def parse_link_name_image(url):
         field_content = article.find("div", "field-content")
         # get link to event
         link = 'https://afisha.lviv.ua' + field_content.find('a', href=True)['href']
-        event['link'] = link
-
-        # second col
-        article = article_div.find("article")
-
-        info = article.findAll("div", "view-filters-info col-xs-12")
-        info_rows = info[0].findAll("div", "row")
-
-        # set name
-        name = info_rows[1].find('div', 'views-field views-field-title h4 col-xs-12')
-        name = name.find('span', 'field-content')
-        name = name.find('span').text
-        event['name'] = name
-
-        # set category
-        category = info_rows[0].find()
-        category = category.find('div', 'field-content')
-        event['category'] = category.text
+        events.append(link)
     elif i == 10:
       for article_div in soup.findAll("div", class_="row views-row row-10 row-last"):
         # first col
@@ -72,24 +52,7 @@ def parse_link_name_image(url):
         field_content = article.find("div", "field-content")
         # get link to event
         link = 'https://afisha.lviv.ua' + field_content.find('a', href=True)['href']
-        event['link'] = link
-
-        # second col
-        article = article_div.find("article")
-
-        info = article.findAll("div", "view-filters-info col-xs-12")
-        info_rows = info[0].findAll("div", "row")
-
-        # set name
-        name = info_rows[1].find('div', 'views-field views-field-title h4 col-xs-12')
-        name = name.find('span', 'field-content')
-        name = name.find('span').text
-        event['name'] = name
-
-        # set category
-        category = info_rows[0].find()
-        category = category.find('div', 'field-content')
-        event['category'] = category.text
+        events.append(link)
     else:
       class_name_article = 'row views-row row-' + str(i)
       for article_div in soup.findAll("div", class_=class_name_article):
@@ -104,32 +67,7 @@ def parse_link_name_image(url):
 
         # set link to event
         link = 'https://afisha.lviv.ua' + field_content.find('a', href=True)['href']
-        event['link'] = link
-
-        # set link to event's image
-        a = field_content.find('a', href=True)
-        img = a.find('img')['src']
-
-        event['image'] = img
-
-        # second col
-        article = article_div.find("article")
-
-        info = article.findAll("div", "view-filters-info col-xs-12")
-        info_rows = info[0].findAll("div", "row")
-
-        # set name
-        name = info_rows[1].find('div', 'views-field views-field-title h4 col-xs-12')
-        name = name.find('span', 'field-content')
-        name = name.find('span').text
-        event['name'] = name
-
-        # set category
-        category = info_rows[0].find()
-        category = category.find('div', 'field-content')
-        event['category'] = category.text
-
-    events.append(event)
+        events.append(link)
 
   return events
 
@@ -170,5 +108,22 @@ def get_price(event_url):
   price = soup.find('div', 'icon-bg price')
   return {'price': price.text}
 
+def get_photo_url(event_url):
+  response = requests.get(event_url)
+  soup = bs(response.content, "html.parser")
+  return {'image': soup.find('img', itemprop='image')['src']}
+
 def full_parser(url):
-  pass
+  count_page = get_count_pages(url)
+
+  events = []
+
+  for i in range(count_page):
+    event = {}
+    if i > 0:
+      url = url+'?page='+str(i)
+
+    link_name_img = parse_link_name_image(url)
+    link = []
+
+
