@@ -1,21 +1,12 @@
 import React from 'react';
 import './SearchBar.scss';
 
-function TodayDate() {
-  let todayDate = '';
-  let currentTime = new Date();
-  let month = currentTime.getMonth() + 1;
-  let day = currentTime.getDate();
-  let year = currentTime.getFullYear();
-  todayDate = month + '/' + day + '/' + year;
-  return todayDate;
-}
-
+var utc = new Date().toJSON().slice(0, 10);
 class SearchBar extends React.Component {
   state = {
     opened: false,
     inputText: '',
-    date: TodayDate(),
+    date: undefined,
   };
 
   toggleDropdown = () => {
@@ -44,7 +35,7 @@ class SearchBar extends React.Component {
         />
         <input
           type="date"
-          min={this.state.date}
+          min={utc}
           name="data-area"
           className="input-area-header data-area"
         />
