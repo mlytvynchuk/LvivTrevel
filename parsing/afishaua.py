@@ -164,16 +164,9 @@ def get_date_and_time(event_url):
   response = requests.get(event_url)
   soup = bs(response.content, "html.parser")
 
-  info = soup.find('div', 'margin-bottom-md brief-info col-xs-12 col-sm-7 col-lg-7')
-  # print(info)
-  date = info.find_all('div', 'text-strong row')[3]
-  date = date.find('div', 'col-xs-12 col-sm-7 col-md-8 col-lg-8')
-  date = date.find('div', 'icon-bg date')
-  date = date.find('time')['datetime']
+  date = soup.find('time', itemprop='startDate')['datetime']
 
-  time = info.find_all('div', 'text-strong row')[4]
-  time = time.find('div', 'col-xs-12 col-sm-7 col-md-8 col-lg-8')
-  time = time.find('div', 'icon-bg hours').time
+  time = soup.find('div', 'icon-bg hours').text
 
   date_and_time = date + " " + time
   return {'date': date_and_time}
