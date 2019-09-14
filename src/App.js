@@ -1,22 +1,19 @@
 import React from 'react';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './App.scss';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
-import Main from './components/Main/Main';
-
-import posts from './api/events';
-
+import Page from './components/Page/Page';
+import Event from './components/Event/Event';
 
 class App extends React.Component {
-  state = {
-    events: posts,
-  };
-
   render() {
     return (
       <div className="main">
-        <Header />
-        <Main events={this.state.events} />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Page} />
+            <Route path="/event" component={Event} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }
