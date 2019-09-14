@@ -4,6 +4,8 @@ import './SearchBar.scss';
 class SearchBar extends React.Component {
   state = {
     opened: false,
+    inputText: '',
+    date: '',
   };
 
   toggleDropdown = () => {
@@ -12,7 +14,15 @@ class SearchBar extends React.Component {
     });
   };
 
+  clickSubmit = () => {
+    const text = document.getElementById('text').value;
+    this.setState({
+      inputText: text,
+    });
+  };
+
   render() {
+    console.log(this.state.inputText);
     return (
       <div className="search-bar">
         <div className="select-style" ref={ref => (this.button = ref)}>
@@ -36,6 +46,7 @@ class SearchBar extends React.Component {
         </div>
         <input
           type="text"
+          id="text"
           name="text-area"
           placeholder="Write event you find ❤"
           className="input-area-header"
@@ -49,6 +60,7 @@ class SearchBar extends React.Component {
           type="submit"
           value="START SEARCHING"
           className="btn-submit-search-header"
+          onClick={this.clickSubmit}
         />
       </div>
     );
