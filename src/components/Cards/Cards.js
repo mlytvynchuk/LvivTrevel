@@ -8,7 +8,7 @@ class Cards extends React.Component {
     const { events } = this.props;
 
     return (
-      <div className="cards-list">
+      <div className="cards">
         {events.map(event => (
           <Card event={event} />
         ))}

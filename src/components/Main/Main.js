@@ -24,10 +24,10 @@ class Main extends React.Component {
     const { events } = this.props;
 
     return (
-      <>
+      <div className="mainBlock">
         <Filters categories={this.state.categories} />
         <Cards events={events} />
-      </>
+      </div>
 
     )
   }
