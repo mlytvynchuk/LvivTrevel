@@ -133,28 +133,14 @@ def parse_link_name_image(url):
 
   return events
 
-def get_address(url):
-  response = requests.get(url)
-  soup = bs(response.content, "html.parser")
+def get_address(event_url):
 
-  event_url = 'https://afisha.lviv.ua/events/cyber-girls-party-0'
   response = requests.get(event_url)
   soup = bs(response.content, "html.parser")
 
-  info = soup.find('div', 'margin-bottom-md brief-info col-xs-12 col-sm-7 col-lg-7')
-  # print(info)
-  address = info.find_all('div', 'text-strong row')[1]
+  address = soup.find('div', itemprop='address').text
 
-  address = address.find('div', 'col-xs-12 col-sm-7 col-md-8 col-lg-8')
-  address = address.find('div', 'icon-bg address')
-  address = address.find_all('meta')
-
-  location = ''
-
-  for i in range(len(address)):
-    location += ' ' + address[i]['content']
-
-  return {'address': location}
+  return {'address': address}
 
 def get_date_and_time(event_url):
   response = requests.get(event_url)
