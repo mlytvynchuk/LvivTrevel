@@ -8,12 +8,12 @@ import SearchBar from '../SearchBar/SearchBar';
 // add button all events;
 
 const categoriesArray = [
-  'Фестивалі',
-  'Концерти',
-  'Вистави',
-  'Конференції',
-  'Вистави',
-  'Інше',
+  "Фестивалі",
+  "Концерти",
+  "Виставки",
+  "Конференції",
+  "Вистави",
+  "Інше"
 ];
 
 class Main extends React.Component {
@@ -22,12 +22,16 @@ class Main extends React.Component {
   };
 
   render() {
-    const { events } = this.props;
-
+    const {
+      events,
+      categoryClick,
+      active,
+    } = this.props;
+    console.log(events);
     return (
       <div className="mainBlock">
         <SearchBar />
-        <Filters categories={this.state.categories} />
+        <Filters categories={this.state.categories} events={events} categoryClick={categoryClick} active={active}/>
         <Cards events={events} />
       </div>
 

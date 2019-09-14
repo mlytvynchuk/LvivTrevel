@@ -1,15 +1,22 @@
 import React from 'react';
 import './Filters.scss';
+import FilterElem from '../FilterElem/FilterElem';
 
 class Filters extends React.Component {
+
   render() {
-    const { categories } = this.props;
+    const {
+      categories,
+      events,
+      categoryClick,
+      active,
+    } = this.props;
     return (
-      <ul>
+      <div className="filtersBlock">
         {categories.map(elem => (
-          <li>{elem}</li>
+          <FilterElem category={elem} events={events} categoryClick={categoryClick} active={active} />
         ))}
-      </ul>
+      </div>
     );
   }
 }
