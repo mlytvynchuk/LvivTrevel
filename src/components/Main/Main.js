@@ -3,16 +3,17 @@ import './Main.scss';
 
 import Filters from '../Filters/Filters';
 import Cards from '../Cards/Cards';
+import SearchBar from '../SearchBar/SearchBar';
 
 // add button all events;
 
 const categoriesArray = [
-  "Фестивалі",
-  "Концерти",
-  "Вистави",
-  "Конференції",
-  "Вистави",
-  "Інше"
+  'Фестивалі',
+  'Концерти',
+  'Вистави',
+  'Конференції',
+  'Вистави',
+  'Інше',
 ];
 
 class Main extends React.Component {
@@ -25,6 +26,7 @@ class Main extends React.Component {
 
     return (
       <div className="mainBlock">
+        <SearchBar />
         <Filters categories={this.state.categories} />
         <Cards events={events} />
       </div>
