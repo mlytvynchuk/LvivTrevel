@@ -108,6 +108,14 @@ def get_price(event_url):
   price = soup.find('div', 'icon-bg price')
   return {'price': price.text}
 
+def get_category(event_url):
+  response = requests.get(event_url)
+  soup = bs(response.content, "html.parser")
+
+  category = soup.find('div', 'field-type margin-bottom-xs text-uppercase')
+  category = category.find('a').text
+  return category
+
 def get_photo_url(event_url):
   response = requests.get(event_url)
   soup = bs(response.content, "html.parser")
