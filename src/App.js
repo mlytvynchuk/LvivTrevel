@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.scss';
+import Header from './components/Header/Header';
 
-function App() {
-  return (
-    <div className="page">
-      Hello React!
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <div className="page" />
+        <Header />
+      </>
+    );
+  }
 }
 
 export default App;
