@@ -4,24 +4,25 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import posts from '../../api/events';
 
-
+const dataArr = [...posts];
 class Page extends React.Component {
   state = {
-    events: posts,
+    events: [...posts],
     active: false,
+    indexElem: undefined,
   };
-   categoryClick = (category) => {
-    this.setState({
+   categoryClick = (category, index) => {
+    this.setState( (prevState) => ({
+      indexElem: prevState.indexElem === index ? undefined : index,
       active: !this.state.active,
-      events: [...this.state.events].filter(event => event.category === category),
-    })
-  };
-
+      events: this.state.active ? [...dataArr] : [...dataArr].filter(event => event.category === category),
+    }));
+   };
   render() {
     return (
       <>
         <Header />
-        <Main events={this.state.events} categoryClick={this.categoryClick} active={this.state.active} />
+        <Main events={this.state.events} categoryClick={this.categoryClick} indexItem={this.state.indexElem}/>
         <Footer />
       </>
     );
