@@ -6,7 +6,13 @@ class Card extends React.Component {
   render() {
     const { event } = this.props;
     return (
-      <Link to="/event">
+      <Link to={{
+        pathname: '/event',
+        aboutProps: {
+          event: event,
+        },
+      }}
+      >
         <div className="card">
           <div className="mainText">
             <h1>{event.name}</h1>
