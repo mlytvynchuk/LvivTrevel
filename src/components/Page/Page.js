@@ -8,14 +8,12 @@ const dataArr = [...posts];
 class Page extends React.Component {
   state = {
     events: [...posts],
-    active: false,
     indexElem: undefined,
   };
    categoryClick = (category, index) => {
     this.setState( (prevState) => ({
       indexElem: prevState.indexElem === index ? undefined : index,
-      active: !this.state.active,
-      events: this.state.active ? [...dataArr] : [...dataArr].filter(event => event.category === category),
+      events: prevState.indexElem === index ? [...dataArr] : [...dataArr].filter(event => event.category === category),
     }));
    };
   render() {
