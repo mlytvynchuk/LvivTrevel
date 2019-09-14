@@ -82,12 +82,12 @@
 
 .input-area-header {
   height: 70px;
-  padding: 0;
-  padding-left: 15px;
+  padding: 0 0 0 15px;
   font-size: 16px;
   border-width: 0;
-  width: 100vh;
-  border-left-width: 1px;
+  width: 500px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .search-bar {
@@ -96,8 +96,9 @@
   height: 70px;
   border-radius: 10px;
   background-color: #fff;
-  width: 1000px;
-  margin-top: 50px;
+  max-width: 800px;
+  margin: 50px auto;
+  grid-area: inputText;
 }
 
 .search-bar:hover {
@@ -113,7 +114,7 @@
 }
 
 .input-area-header:focus {
-  outline-color: #0a5;
+  outline: none;
 }
 
 .input-area-header:hover {
