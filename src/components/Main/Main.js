@@ -3,6 +3,7 @@ import './Main.scss';
 
 import Filters from '../Filters/Filters';
 import Cards from '../Cards/Cards';
+import SearchBar from '../SearchBar/SearchBar';
 
 // add button all events;
 
@@ -28,10 +29,11 @@ class Main extends React.Component {
     } = this.props;
     console.log(events);
     return (
-      <>
+      <div className="mainBlock">
+        <SearchBar />
         <Filters categories={this.state.categories} events={events} categoryClick={categoryClick} active={active}/>
         <Cards events={events} />
-      </>
+      </div>
 
     )
   }
