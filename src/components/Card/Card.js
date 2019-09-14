@@ -6,7 +6,7 @@ class Card extends React.Component {
   render() {
     const { event } = this.props;
     return (
-      <Link to="/event">
+      <Link to="/event" target="_blank">
         <div className="card">
           <div className="mainText">
             <h1>{event.name}</h1>
@@ -16,9 +16,7 @@ class Card extends React.Component {
           </div>
           <div className="details">
             <div className="center">
-              <h1>
-                {event.name}
-              </h1>
+              <h1>{event.name}</h1>
               <p>
                 {event.date}
                 <br />

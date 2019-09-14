@@ -1,11 +1,21 @@
 import React from 'react';
 import './SearchBar.scss';
 
+function TodayDate() {
+  let todayDate = '';
+  let currentTime = new Date();
+  let month = currentTime.getMonth() + 1;
+  let day = currentTime.getDate();
+  let year = currentTime.getFullYear();
+  todayDate = month + '/' + day + '/' + year;
+  return todayDate;
+}
+
 class SearchBar extends React.Component {
   state = {
     opened: false,
     inputText: '',
-    date: '',
+    date: TodayDate(),
   };
 
   toggleDropdown = () => {
@@ -29,17 +39,18 @@ class SearchBar extends React.Component {
           type="text"
           id="text"
           name="text-area"
-          placeholder="Write event you find ❤"
+          placeholder="Введіть подію, яку ви шукаєте  ❤"
           className="input-area-header"
         />
         <input
           type="date"
+          min={this.state.date}
           name="data-area"
           className="input-area-header data-area"
         />
         <input
           type="submit"
-          value="START SEARCHING"
+          value="ПОШУК"
           className="btn-submit-search-header"
           onClick={this.clickSubmit}
         />
