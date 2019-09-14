@@ -8,6 +8,9 @@ class Card extends React.Component {
     return (
       <Link to="/event">
         <div className="card">
+          <div className="mainText">
+            <h1>{event.name}</h1>
+          </div>
           <div className="image">
             <img src={event.image} />
           </div>
