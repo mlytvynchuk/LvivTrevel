@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup as bs
 
 base_url = 'https://afisha.lviv.ua/events'
 
-additional_url = ''
-
 def get_count_pages(url):
   response = requests.get(url)
   soup = bs(response.content, "html.parser")
@@ -185,3 +183,13 @@ def get_description(event_url):
   soup = bs(response.content, "html.parser")
   description = soup.find('div', itemprop='description').text
   return {'description': description}
+
+def get_price(event_url):
+  response = requests.get(event_url)
+  soup = bs(response.content, "html.parser")
+
+  price = soup.find('div', 'icon-bg price')
+  return {'price': price.text}
+
+def full_parser(url):
+  pass
