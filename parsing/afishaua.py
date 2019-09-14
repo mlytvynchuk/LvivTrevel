@@ -23,51 +23,12 @@ def parse_links(url):
   response = requests.get(url)
   soup = bs(response.content, "html.parser")
 
+  a = soup.findAll('a', href=True, itemprop="url")
   events = []
 
-  for i in range(1, 11):
-    # get row with article
-    if i == 1:
-      for article_div in soup.findAll("div", class_="row views-row row-1 row-first"):
-        # first col
-        article_div = article_div.find('div', "col-xs-12 col-sm-4 col-md-4 views-col col-1 col-first")
-        # get row in previous class
-        article_div = article_div.find("div", "row")
-        article = article_div.find("article")
-        article = article.find("div", "views-field-logo col-xs-12")
-        # get content
-        field_content = article.find("div", "field-content")
-        # get link to event
-        link = 'https://afisha.lviv.ua' + field_content.find('a', href=True)['href']
-        events.append(link)
-    elif i == 10:
-      for article_div in soup.findAll("div", class_="row views-row row-10 row-last"):
-        # first col
-        article_div = article_div.find('div', "col-xs-12 col-sm-4 col-md-4 views-col col-1 col-first")
-        # get row in previous class
-        article_div = article_div.find("div", "row")
-        article = article_div.find("article")
-        article = article.find("div", "views-field-logo col-xs-12")
-        # get content
-        field_content = article.find("div", "field-content")
-        # get link to event
-        link = 'https://afisha.lviv.ua' + field_content.find('a', href=True)['href']
-        events.append(link)
-    else:
-      class_name_article = 'row views-row row-' + str(i)
-      for article_div in soup.findAll("div", class_=class_name_article):
-        # first col
-        article_div = article_div.find('div', "col-xs-12 col-sm-4 col-md-4 views-col col-1 col-first")
-        # get row in previous class
-        article_div = article_div.find("div", "row")
-        article = article_div.find("article")
-        article = article.find("div", "views-field-logo col-xs-12")
-        # get content
-        field_content = article.find("div", "field-content")
-
-        # set link to event
-        link = 'https://afisha.lviv.ua' + field_content.find('a', href=True)['href']
-        events.append(link)
+  for i in range(len(a)):
+    link = 'https://afisha.lviv.ua' + soup.findAll('a', href=True, itemprop="url")[i]['href']
+    events.append(link)
 
   return events
 
@@ -122,7 +83,6 @@ def full_parser(url):
     for link in parse_links(url):
       response = requests.get(link)
       soup = bs(response.content, "html.parser")
-      print("Link:", link)
       event['name'] = get_name(soup)['name']
       event['image'] = get_photo_url(soup)['image']
       event['category'] = get_category(soup)['category']
@@ -132,6 +92,7 @@ def full_parser(url):
         event['price'] = get_price(soup)['price']
       except AttributeError:
         event['price'] = "Havem't information"
+
       event['description'] = get_description(soup)['description']
 
       events.append(event)
