@@ -104,8 +104,22 @@ posts = parse_posts(links, headers)
 
 
 def add_post_to_db(posts):
+    category_q = Category.objects.values('name')
+    categories = []
+    for item in category_q:
+        categories.append(item['name'])
     for post in posts:
-        if not Category.objects.filter(name=post["category"]).exists():
+        if post["category"].__contains__("Мистецтво") or post["category"].__contains__("Театр") or post["category"].__contains__("Література"):
+            post["category"] = "Виставки"
+        elif post["category"] == "Музика":
+            post["category"] = "Концерти"
+        elif post["category"] == "Бізнес":
+            post["category"] = "Конференції"
+
+        elif post["category"].__contains__("Фестивалі"):
+            post["category"] = "Фестивалі"
+
+        elif post["category"] not in categories:
             post["category"] = "Інше"
 
         if not post["price"]:
@@ -120,7 +134,7 @@ def add_post_to_db(posts):
             description=post["description"],
             link=post["link"]
         )
-
+    
 add_post_to_db(posts)
 
 def del_all_posts():
