@@ -3,13 +3,14 @@ import './Main.scss';
 
 import Filters from '../Filters/Filters';
 import Cards from '../Cards/Cards';
+import SearchBar from '../SearchBar/SearchBar';
 
 // add button all events;
 
 const categoriesArray = [
   "Фестивалі",
   "Концерти",
-  "Вистави",
+  "Виставки",
   "Конференції",
   "Вистави",
   "Інше"
@@ -21,13 +22,18 @@ class Main extends React.Component {
   };
 
   render() {
-    const { events } = this.props;
-
+    const {
+      events,
+      categoryClick,
+      active,
+    } = this.props;
+    console.log(events);
     return (
-      <>
-        <Filters categories={this.state.categories} />
+      <div className="mainBlock">
+        <SearchBar />
+        <Filters categories={this.state.categories} events={events} categoryClick={categoryClick} active={active}/>
         <Cards events={events} />
-      </>
+      </div>
 
     )
   }
