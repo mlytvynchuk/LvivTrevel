@@ -19,7 +19,7 @@ def get_count_pages(url):
   print(pages)
   return len(pages)
 
-def parse_link_name_image(url):
+def parse_links(url):
   response = requests.get(url)
   soup = bs(response.content, "html.parser")
 
@@ -71,54 +71,41 @@ def parse_link_name_image(url):
 
   return events
 
-def get_address(event_url):
+def get_name(soup):
 
-  response = requests.get(event_url)
-  soup = bs(response.content, "html.parser")
+  return {'name': soup.find('h1', itemprop='name').text}
 
+def get_address(soup):
   address = soup.find('div', itemprop='address').text
 
   return {'address': address}
 
-def get_date_and_time(event_url):
-  response = requests.get(event_url)
-  soup = bs(response.content, "html.parser")
-
-  event_url = 'https://afisha.lviv.ua/events/cyber-girls-party-0'
-  response = requests.get(event_url)
-  soup = bs(response.content, "html.parser")
+def get_date_and_time(soup):
 
   date = soup.find('time', itemprop='startDate')['datetime']
 
-  time = soup.find('div', 'icon-bg hours').text
+  try:
+    time = soup.find('div', 'icon-bg hours').text
+  except AttributeError:
+    time = ''
 
   date_and_time = date + " " + time
   return {'date': date_and_time}
 
-def get_description(event_url):
-  response = requests.get(event_url)
-  soup = bs(response.content, "html.parser")
+def get_description(soup):
   description = soup.find('div', itemprop='description').text
   return {'description': description}
 
-def get_price(event_url):
-  response = requests.get(event_url)
-  soup = bs(response.content, "html.parser")
-
+def get_price(soup):
   price = soup.find('div', 'icon-bg price')
   return {'price': price.text}
 
-def get_category(event_url):
-  response = requests.get(event_url)
-  soup = bs(response.content, "html.parser")
-
+def get_category(soup):
   category = soup.find('div', 'field-type margin-bottom-xs text-uppercase')
   category = category.find('a').text
-  return category
+  return {"category": category}
 
-def get_photo_url(event_url):
-  response = requests.get(event_url)
-  soup = bs(response.content, "html.parser")
+def get_photo_url(soup):
   return {'image': soup.find('img', itemprop='image')['src']}
 
 def full_parser(url):
@@ -126,12 +113,29 @@ def full_parser(url):
 
   events = []
 
+
   for i in range(count_page):
     event = {}
     if i > 0:
       url = url+'?page='+str(i)
 
-    link_name_img = parse_link_name_image(url)
-    link = []
+    for link in parse_links(url):
+      response = requests.get(link)
+      soup = bs(response.content, "html.parser")
+      print("Link:", link)
+      event['name'] = get_name(soup)['name']
+      event['image'] = get_photo_url(soup)['image']
+      event['category'] = get_category(soup)['category']
+      event['date'] = get_date_and_time(soup)['date']
+      event['address'] = get_address(soup)['address']
+      try:
+        event['price'] = get_price(soup)['price']
+      except AttributeError:
+        event['price'] = "Havem't information"
+      event['description'] = get_description(soup)['description']
 
+      events.append(event)
 
+  return events
+
+print(full_parser(base_url))
