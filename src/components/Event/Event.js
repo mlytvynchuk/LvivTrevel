@@ -1,20 +1,39 @@
 import React from 'react';
+import './Event.scss';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import InfoEvent from '../InfoEvent/InfoEvent';
+import Card from "../Card/Card";
 
+let index = 0;
 class Event extends React.Component {
+  state = {
+    events: [],
+  };
+
+  componentDidMount () {
+    index = this.props.match.params.index;
+    console.log(index);
+
+    fetch(`http://localhost:8000/api/events/`).then(response =>
+      response.json().then(result => {
+        this.setState({
+          events: result,
+        });
+      })
+    );
+  };
+
   render() {
-    const { event } = this.props.location.aboutProps;
+    const events  = this.state.events;
+    console.log(events);
+
     return (
       <div className="event">
         <Header />
-        <div className="infoEvent">
-          <div className="bg-image">
-            <img src={event.image} alt="" />
-            <h1>{event.name}</h1>
-            <h3>{event.category}</h3>
-          </div>
-        </div>
+          {events.map(elem =>
+           events[index] === elem ? <InfoEvent event={elem} /> : undefined
+          )}
         <Footer />
       </div>
     );

@@ -16,8 +16,8 @@ class Cards extends React.Component {
     return (
       <div>
       <div className="cards">
-        {events.map(event => (
-          <Card event={event} />
+        {events.map((event, i) => (
+          <Card event={event} index={i} />
         ))}
       </div>
       

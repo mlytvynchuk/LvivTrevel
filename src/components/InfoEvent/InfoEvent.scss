@@ -1,0 +1,64 @@
+.eventImage {
+  width: 100%;
+  img {
+    width: 100%;
+    height: 80%;
+    border-radius: 30px;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.01);
+    }
+  }
+}
+
+.infoEvent {
+  padding-top: 150px;
+  width: calc(100% - 120px);
+  margin: 0 auto;
+  &-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .infoEvent {
+    width: 1254px;
+  }
+}
+
+.eventMainDescr {
+  margin-top: 30px;
+  margin-left: 8%;
+  h1 {
+    color: #0a5;
+    font-style: italic;
+  }
+  h3 {
+    margin-top: 40px;
+    color: #606060;
+    font-weight: bold;
+  }
+}
+
+.address-date {
+  margin-top: 20%;
+  div {
+    padding: 20px 0;
+    font-size: 20px;
+    i {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.event-description {
+  margin: 100px 0;
+  font-size: 20px;
+  line-height: 100%;
+  padding: 10px;
+  width: 80%;
+  font-style: italic;
+}

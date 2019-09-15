@@ -19,6 +19,7 @@ class SearchBar extends React.Component {
 
   render() {
     const { searchFunc } = this.props;
+    
     return (
       <div className="search-bar">
         <i className="grey search icon"/>
