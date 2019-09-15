@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import os
 from api.models import Event, Category
-import time
+
 headers = {'accept': '*/*',
            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
 
@@ -43,12 +43,12 @@ def get_links(base_url, headers):
 
 links = get_links(base_url, headers)
 
-
 def parse_posts(links,headers):
     posts = []
     session = requests.Session()
     
     for page in links:
+        
         request = session.get(page, headers=headers)
         soup = bs(request.content, 'html.parser')        
         name = soup.find('h1', attrs={'itemprop': 'name'})
@@ -63,39 +63,45 @@ def parse_posts(links,headers):
             date = date.find('span').text
         else:
             date = "Скоро"
-        post = {
-            'name':name,
-            'description': description,
-            'address': address,
-            'date': date,
-            'category': category,
-            'price': price,
-            'image': image,
-            'link': page
-        }
-        posts.append(post)
+        if name and description and date and image:
+            post = {
+                'name':name.text,
+                'description': description,
+                'address': address,
+                'date': date,
+                'category': category,
+                'price': price,
+                'image': image,
+                'link': page
+            }
+            print(post["category"])
+            posts.append(post)
     return posts   
 posts = parse_posts(links,headers)
+
 def add_post_to_db(posts):
     category_q = Category.objects.values('name')
     categories = []
     for item in category_q:
         categories.append(item['name'])
+    
     for post in posts:
-        if post["name"] and post["image"] and post["category"] \
-            and post["date"] and post["address"] \
-                and post["price"] and post["description"] and post["link"]:
-            e = Event()
-            e.name=post["name"],
-            e.image=post["image"],
-            e.category=Category.objects.get(id=1),
-            e.date=post["date"],
-            e.address=post["address"],
-            e.price=post["price"],
-            e.description=post["description"],
-            e.link = post["link"]
-            e.save()
-            print(e)
+        if post["category"] not in categories:
+            post["category"] = "Інше"
 
-print(posts)
+        if not post["price"]:
+            post["price"] = "Безкоштовно"
+        e = Event.objects.create(
+            name=post["name"],
+            image=post["image"],
+            category=Category.objects.filter(name=post["category"])[0],
+            date=post["date"],
+            address=post["address"],
+            price=post["price"],
+            description=post["description"],
+            link=post["link"]
+        )
+# print(posts)
+# print(links)
+
 add_post_to_db(posts)
