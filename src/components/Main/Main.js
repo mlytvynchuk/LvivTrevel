@@ -12,7 +12,7 @@ const categoriesArray = [
   "Концерти",
   "Виставки",
   "Конференції",
-  "Вистави",
+  "Театр",
   "Інше"
 ];
 
@@ -26,10 +26,11 @@ class Main extends React.Component {
       events,
       categoryClick,
       indexItem,
+      searchFunc,
     } = this.props;
     return (
       <div className="mainBlock">
-        <SearchBar />
+        <SearchBar events={events} searchFunc={searchFunc}/>
         <Filters categories={this.state.categories} events={events} categoryClick={categoryClick} indexItem={indexItem}/>
         <Cards events={events} />
       </div>

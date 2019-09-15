@@ -31,6 +31,13 @@ class Page extends React.Component {
     }));
   };
 
+  searchFunc = (event) => {
+    this.setState({
+      events: [...dataArr].filter(v => v.name.toLowerCase().includes(event.target.value.toLowerCase()))
+
+    });
+  };
+
   render() {
     return (
       <>
@@ -39,6 +46,7 @@ class Page extends React.Component {
           events={this.state.events}
           categoryClick={this.categoryClick}
           indexItem={this.state.indexElem}
+          searchFunc={this.searchFunc}
         />
         <Footer />
       </>
