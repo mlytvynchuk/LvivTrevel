@@ -10,3 +10,6 @@ yarn-error.log*
 
 venv/
 parsing/test.py
+
+parser.js
+package.json

@@ -81,6 +81,7 @@ def full_parser(url):
       url = url+'?page='+str(i)
 
     for link in parse_links(url):
+      print("Link:", link)
       response = requests.get(link)
       soup = bs(response.content, "html.parser")
       event['name'] = get_name(soup)['name']
@@ -91,7 +92,7 @@ def full_parser(url):
       try:
         event['price'] = get_price(soup)['price']
       except AttributeError:
-        event['price'] = "Havem't information"
+        event['price'] = "Haven't information"
 
       event['description'] = get_description(soup)['description']
 
