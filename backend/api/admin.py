@@ -4,6 +4,6 @@ from .models import Event, Category
 
 class EventAdmin(admin.ModelAdmin):
     search_fields = ['name']
-    list_filter = ['category']
+    list_filter = ['category', 'is_active']
 admin.site.register(Event, EventAdmin)
 admin.site.register(Category)

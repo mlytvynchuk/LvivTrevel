@@ -15,34 +15,27 @@ class SearchBar extends React.Component {
     });
   };
 
-  clickSubmit = () => {
-    const text = document.getElementById('text').value;
-    this.setState({
-      inputText: text,
-    });
-  };
+
 
   render() {
+    const { searchFunc } = this.props;
+    
     return (
       <div className="search-bar">
+        <i className="grey search icon"/>
         <input
           type="text"
           id="text"
           name="text-area"
           placeholder="Введіть подію, яку ви шукаєте  ❤"
           className="input-area-header"
+          onChange={searchFunc}
         />
         <input
           type="date"
           min={utc}
           name="data-area"
           className="input-area-header data-area"
-        />
-        <input
-          type="submit"
-          value="ПОШУК"
-          className="btn-submit-search-header"
-          onClick={this.clickSubmit}
         />
       </div>
     );
