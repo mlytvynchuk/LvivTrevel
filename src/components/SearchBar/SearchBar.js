@@ -23,7 +23,6 @@ class SearchBar extends React.Component {
   };
 
   render() {
-    console.log(this.state.inputText);
     return (
       <div className="search-bar">
         <input

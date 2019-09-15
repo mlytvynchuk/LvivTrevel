@@ -4,15 +4,10 @@ import { Link } from 'react-router-dom';
 
 class Card extends React.Component {
   render() {
-    const { event } = this.props;
+    const { event, index } = this.props;
+    console.log(event);
     return (
-      <Link to={{
-        pathname: '/event',
-        aboutProps: {
-          event: event,
-        },
-      }}
-      >
+      <Link to={`/event/${index}`}>
         <div className="card">
           <div className="mainText">
             <h1>{event.name}</h1>
