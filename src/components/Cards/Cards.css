@@ -1,7 +1,6 @@
 .cards {
-  display: flex;
-  justify-content: space-around;
-  flex-flow: row wrap;
-  grid-area: cards; }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px; }
 
 /*# sourceMappingURL=Cards.css.map */
