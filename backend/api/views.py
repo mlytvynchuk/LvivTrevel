@@ -5,7 +5,7 @@ from .models import Event,Category
 # Create your views here.
 
 class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
+    queryset = Event.objects.filter(is_active=True)
     serializer_class = EventSerializer
 
 class CategoryViewSet(viewsets.ModelViewSet):
