@@ -1,56 +1,22 @@
-# Base template for React
+# LvivTrevel
+LvivTrevel is a web application that shows events in Lviv. This one parses data from another events website, allows to moderate it and posts.
+It is implemented with React.js and Django rest framework in EPAM Lviv Social Hackathon.
 
-## Task
 
-## Workflow
+## To run frontend
+In the project root directory, you can run:
+ `npm start`
 
-- Fork the repository with task
-- Clone forked repository 
-    ```bash
-    git clone git@github.com:<user_name>>/<task_repository>.git
-    ```
-- Run `npm install` to install dependencies.
-- Then develop
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Development mode 
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-- Run `npm run start` to start `http-server` on `http://localhost:3000`
-    When you run server the command line window will no longer be available for 
-    writing commands until you stop server (`ctrl + c`). All other commands you 
-    need to run in new command line window.
-- Follow [HTML, CSS styleguide](https://mate-academy.github.io/style-guides/htmlcss.html)
-- Follow [the simplified JS styleguide](https://mate-academy.github.io/style-guides/javascript-standard-modified)
-- When you finished `Deploy on gh-pages`
+## To run backend:
+1. Install virtualenv `virtualenv venv` in prject directory. If it is not installed - `pip install virtualenv` or `easy_install virtualenv`
 
-## Deploy on gh-pages
+2. Run `pip install -r requirements.txt` in the project `backend/` directory
 
-- Build the project
-  ```bash
-  $ npm run build
-  ```
-- Commit and push all recent changes
-  ```bash
-  $ git add .
-  $ git commit -m 'commit message'
-  $ git push origin master
-  ```
-- Execute `npm run deploy`. This command will push the `/build` folder to branch
-  `gh-pages` in your remote repository. 
-- Add links to your demo in readme.md.
-  - `[DEMO LINK](https://<your_account>.github.io/<repo_name>/)` - this will be a 
-  link to your index.html
-- Commit and push all recent changes again.
-- Create `Pull Request` from forked repo `(<branch_name>)` to original repo 
-(`master`).
-- Add a link at `PR` to Google Spreadsheets.
-
-## Project structure
-
-- `src/` - directory for css, js, image, fonts files
-- `build/` - directory for built pages
-
-You should be writing code in `src/` directory.
-
-### Demo link
-
-Add link here: `[DEMO LINK](https://<your_account>.github.io/<repo_name>/)`
+3. Run `python manage.py runserver` in the same `backend/` directory 
+Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
